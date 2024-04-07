@@ -1,7 +1,7 @@
 package fr.uga.l3miage.spring.tp3.exceptions.handlers;
 
-import fr.uga.l3miage.spring.tp3.errors.ChangeSessionStatusErrorResponse;
-import fr.uga.l3miage.spring.tp3.exceptions.rest.ChangingSessionStatusRestException;
+import fr.uga.l3miage.spring.tp3.errors.AddCandidatesToCenterErrorResponse;
+import fr.uga.l3miage.spring.tp3.exceptions.rest.AddingCandidatesToCenterRestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @ControllerAdvice
-public class ChangingSessionStatusRestExceptionHandler {
+public class AddingCandidatesToCenterRestExceptionHandler {
 
-    @ExceptionHandler(ChangingSessionStatusRestException.class)
-    public ResponseEntity<ChangeSessionStatusErrorResponse> handle(HttpServletRequest httpServletRequest, Exception e){
-        ChangingSessionStatusRestException exception = (ChangingSessionStatusRestException) e;
-        final ChangeSessionStatusErrorResponse response = ChangeSessionStatusErrorResponse
+    @ExceptionHandler(AddingCandidatesToCenterRestException.class)
+    public ResponseEntity<AddCandidatesToCenterErrorResponse> handle(HttpServletRequest httpServletRequest, Exception e){
+        AddingCandidatesToCenterRestException exception = (AddingCandidatesToCenterRestException) e;
+        final AddCandidatesToCenterErrorResponse response = AddCandidatesToCenterErrorResponse
                 .builder()
                 .uri(httpServletRequest.getRequestURI())
                 .errorMessage(exception.getMessage())
@@ -24,5 +24,4 @@ public class ChangingSessionStatusRestExceptionHandler {
         log.warn(exception.getMessage());
         return ResponseEntity.badRequest().body(response);
     }
-
 }

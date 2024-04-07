@@ -4,7 +4,7 @@ import fr.uga.l3miage.spring.tp3.enums.TestCenterCode;
 import lombok.Data;
 
 @Data
-public class CenterResponse {
+public class TestCenterResponse {
 
     private Long id ;
 
