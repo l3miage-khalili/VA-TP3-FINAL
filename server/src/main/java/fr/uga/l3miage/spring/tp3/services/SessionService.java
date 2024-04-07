@@ -4,7 +4,9 @@ import fr.uga.l3miage.spring.tp3.components.ExamComponent;
 import fr.uga.l3miage.spring.tp3.components.SessionComponent;
 import fr.uga.l3miage.spring.tp3.enums.SessionStatus;
 import fr.uga.l3miage.spring.tp3.exceptions.rest.CreationSessionRestException;
+import fr.uga.l3miage.spring.tp3.exceptions.rest.ChangingSessionStatusRestException;
 import fr.uga.l3miage.spring.tp3.exceptions.technical.ExamNotFoundException;
+import fr.uga.l3miage.spring.tp3.exceptions.technical.NotFoundSessionException;
 import fr.uga.l3miage.spring.tp3.mappers.SessionMapper;
 import fr.uga.l3miage.spring.tp3.models.EcosSessionEntity;
 import fr.uga.l3miage.spring.tp3.models.EcosSessionProgrammationEntity;
@@ -48,4 +50,15 @@ public class SessionService {
             throw new CreationSessionRestException(e.getMessage());
         }
     }
+
+    public SessionResponse changeSessionStatus(Long idSession, SessionStatus status){
+        try {
+            EcosSessionEntity sessionEntity = sessionComponent.getSession(idSession) ;
+            sessionEntity.setStatus(status);
+            return sessionMapper.toResponse(sessionEntity) ;
+        } catch (NotFoundSessionException e){
+            throw new ChangingSessionStatusRestException(e.getMessage()) ;
+        }
+    }
+
 }
